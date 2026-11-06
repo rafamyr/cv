@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rafael Miyar — Mechanical Design Engineer</title>
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1d2530;
+      --muted: #5b6c7d;
+      --accent: #145a88;
+      --accent-soft: #e9f3fa;
+      --line: #dbe3ec;
+      --subtle: #f8fafc;
+      --shadow: 0 12px 28px rgba(17, 36, 56, 0.08);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f1620;
+      --card: #151e2a;
+      --text: #e8eef6;
+      --muted: #a7b6c7;
+      --accent: #4fa9e8;
+      --accent-soft: rgba(79, 169, 232, 0.14);
+      --line: #263548;
+      --subtle: #1a2532;
+      --shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.58;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 20px;
+      break-inside: avoid;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0d3b60, #1e74a8);
+      color: #fff;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+    }
+
+    [data-theme="dark"] .hero {
+      background: linear-gradient(135deg, #08131d, #0f3a5e);
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.82;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+    }
+
+    .tagline {
+      margin: 8px 0 16px;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .contact {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      font-size: 0.95rem;
+    }
+
+    .contact li {
+      opacity: 0.96;
+    }
+
+    .contact a {
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .actions button {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      padding: 9px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.86rem;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .actions button:hover {
+      background: rgba(255, 255, 255, 0.24);
+      transform: translateY(-1px);
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 1rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+
+    .summary p {
+      margin: 0;
+      font-size: 1.02rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--accent), transparent);
+    }
+
+    .entry {
+      position: relative;
+      margin-left: 18px;
+      padding-bottom: 22px;
+      break-inside: avoid;
+    }
+
+    .entry:last-child {
+      padding-bottom: 0;
+    }
+
+    .entry::before {
+      content: "";
+      position: absolute;
+      left: -17px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--card);
+    }
+
+    .entry-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .date {
+      flex: 0 0 auto;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(20, 90, 136, 0.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .role {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+
+    .meta {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .entry ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .entry li {
+      margin: 7px 0;
+    }
+
+    .entry li::marker {
+      color: var(--accent);
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .mini-card {
+      background: var(--subtle);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      break-inside: avoid;
+    }
+
+    .mini-card h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .mini-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .mini-card li {
+      margin: 7px 0;
+    }
+
+    .cert-list li::marker {
+      color: var(--accent);
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.84rem;
+      margin-top: 12px;
+    }
+
+    body.compact .card {
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    body.compact .hero {
+      padding: 18px;
+    }
+
+    body.compact h1 {
+      font-size: 1.75rem;
+    }
+
+    body.compact .tagline,
+    body.compact .contact,
+    body.compact .summary p,
+    body.compact .entry li,
+    body.compact .mini-card li {
+      font-size: 0.92rem;
+    }
+
+    body.compact .entry ul,
+    body.compact .mini-card ul {
+      margin-top: 8px;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .card {
+        box-shadow: none;
+        border-color: #ddd;
+        margin-bottom: 14px;
+      }
+
+      .actions {
+        display: none !important;
+      }
+
+      .hero {
+        background: #fff !important;
+        color: #111 !important;
+        border-bottom: 2px solid #145a88;
+      }
+
+      .contact a,
+      .eyebrow,
+      .tagline {
+        color: #111 !important;
+      }
+
+      [data-theme="dark"] .hero {
+        background: #fff !important;
+        color: #111 !important;
+      }
+
+      h2 {
+        color: #145a88;
+      }
+
+      .footer-note {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card hero">
+      <div>
+        <p class="eyebrow">Mechanical Design Engineer · Aerospace &amp; Structural Analysis</p>
+        <h1>Rafael Miyar</h1>
+        <p class="tagline">CAD · FEA · GD&amp;T · Electronic Packaging · Gas Turbine Components</p>
+
+        <ul class="contact">
+          <li>Isabela, PR</li>
+          <li><a href="mailto:rafael.miyar@proton.me">rafael.miyar@proton.me</a></li>
+          <li><a href="https://www.linkedin.com/in/rmiyar" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
+
+      <div class="actions">
+        <button id="themeToggle" type="button">Dark mode</button>
+        <button id="compactToggle" type="button">Compact view</button>
+        <button onclick="window.print()" type="button">Print / Save PDF</button>
+      </div>
+    </section>
+
+    <section class="card summary">
+      <h2>Professional Summary</h2>
+      <p>
+        Mechanical engineer with around 10 years’ experience in mechanical design and structural analysis within the aerospace sector.
+        Contributed to mechanical design and validation of electronic products for consumer and commercial aerospace applications,
+        as well as gas turbine engine components at major companies such as Honeywell and Pratt &amp; Whitney. Comfortable owning well-scoped
+        component or assembly-level designs from concept through validation using CAD and FEA tools including PTC Creo Parametric, SolidWorks,
+        NX CAD, ANSYS APDL, and NX Nastran, while applying GD&amp;T per ASME Y14.5 along with MIL-STD, NAS, and IPC standards. Enjoys working
+        with cross-functional teams to create innovative engineering solutions, streamline processes, and continuously grow as an engineer.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Professional Experience</h2>
+
+      <div class="timeline">
+        <article class="entry">
+          <div class="entry-top">
+            <div>
+              <h3 class="role">Independent Consulting and Contracting — Mechanical Design Engineer</h3>
+              <p class="meta">US-PR</p>
+            </div>
+            <span class="date">Jul 2025 – Present</span>
+          </div>
+
+          <ul>
+            <li><strong>3D CAD Modeling:</strong> Develop precise 3D models ensuring accurate visualization and detailed representation.</li>
+            <li><strong>DFA &amp; DFM:</strong> Optimize concepts for real-world production, focusing on ease of production/assembly, ease of maintenance, low cost, and high quality.</li>
+            <li><strong>Tolerance Analysis:</strong> Analyze and optimize design tolerances to ensure assembly feasibility within manufacturing constraints.</li>
+            <li><strong>Stress Analysis (FEA):</strong> Assess performance and durability of components and assemblies using modern finite element analysis tools.</li>
+            <li><strong>Technical Documentation:</strong> Generate drawings to ASME standards including revision control, GD&amp;T, material callouts, finish specifications, and BOM. Support product specification development and improvement efforts.</li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div>
+              <h3 class="role">Honeywell Aerospace — Sr. Advanced Mechanical Design Engineer</h3>
+              <p class="meta">Moca, PR</p>
+            </div>
+            <span class="date">Jun 2024 – May 2025</span>
+          </div>
+
+          <ul>
+            <li><strong>Design &amp; Analysis:</strong> Designed electronic packaging for aerospace applications, ensuring compliance with engineering standards. Performed FEA using NX Nastran and ANSYS for static, modal, vibration, and shock response analyses.</li>
+            <li><strong>Tool &amp; Fixture Design:</strong> Designed fixtures and tools, including 3D-printed (FDM) components, and collaborated with suppliers to ensure successful manufacturing.</li>
+            <li><strong>Mechanical Reliability:</strong> Performed bolted joint analysis, assessed mechanical reliability of electronic assemblies, and completed tolerance stack-ups to support design performance and feasibility.</li>
+            <li><strong>Cross-functional Collaboration:</strong> Partnered with electrical engineering teams to address mechanical design challenges and ensure seamless integration between electrical and mechanical systems. Served as Teamcenter administrator for mechanical designs developed by the electronic packaging design team.</li>
+            <li><strong>Process Improvement:</strong> Developed a Microsoft Power App (“ECN Tracker”) to streamline Engineering Change Notice processes, resulting in savings of over $90K annually.</li>
+            <li><strong>Reporting &amp; Reviews:</strong> Participated in design reviews, prepared detailed technical documentation, and delivered analysis reports to support peer reviews and decision-making.</li>
+            <li><strong>Mentoring &amp; Leadership:</strong> Provided mentorship to junior engineers and interns on design best practices, FEA analysis, and design tool usage.</li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div>
+              <h3 class="role">Honeywell Aerospace — Advanced Mechanical Design Engineer</h3>
+              <p class="meta">Moca, PR</p>
+            </div>
+            <span class="date">Jul 2022 – Jun 2024</span>
+          </div>
+
+          <ul>
+            <li>Designed electronic packaging for aerospace applications with compliance to engineering standards and specifications.</li>
+            <li>Conducted FEA using NX Nastran and ANSYS for static, modal, random vibration, and shock response analyses.</li>
+            <li>Performed pre-processing and post-processing of FEA results and calculated effective mechanical properties for laminated PCB materials.</li>
+            <li>Performed bolted joint analysis and assessed mechanical reliability of electronic assemblies.</li>
+            <li>Prepared analysis reports and delivered presentations during peer reviews.</li>
+            <li>Completed tolerance stack-ups to ensure design performance and feasibility.</li>
+            <li>Designed fixtures and tools, including FDM 3D-printed components, and coordinated with suppliers for manufacturing.</li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div>
+              <h3 class="role">Honeywell Aerospace — Mechanical Design Engineer II</h3>
+              <p class="meta">Moca, PR</p>
+            </div>
+            <span class="date">Jan 2021 – Jul 2022</span>
+          </div>
+
+          <ul>
+            <li>Worked on electronic packaging design for aerospace applications with compliance to engineering standards and specifications.</li>
+            <li>Designed fixtures and tools as required and interacted with suppliers for manufacturing.</li>
+            <li>Conducted structural analysis of electro-mechanical assemblies to validate designs and ensure reliability under operational conditions.</li>
+            <li>Collaborated regularly with electrical engineering teams to address mechanical design challenges and implement solutions.</li>
+            <li>Participated in design reviews and provided detailed technical documentation and reports.</li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div>
+              <h3 class="role">Honeywell Aerospace — Specialist II Engineering Support (Mechanical Design)</h3>
+              <p class="meta">Moca, PR</p>
+            </div>
+            <span class="date">Jan 2019 – Jan 2021</span>
+          </div>
+
+          <ul>
+            <li>Designed fixtures and tools while interacting with suppliers for manufacturing needs.</li>
+            <li>Developed and maintained MCAD drawings and 3D models for aviation and space electronic packaging design projects.</li>
+            <li>Provided expert technical support for MCAD tools (Siemens NX, Creo Parametric), improving design efficiency and process quality.</li>
+            <li>Managed MCAD support requests for Engineering Change Notifications (ECN) and integrated CAD data into the Teamcenter PLM system.</li>
+            <li>Trained and mentored engineering staff on effective use of MCAD software tools and promoted CAD best practices.</li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-top">
+            <div>
+              <h3 class="role">Pratt &amp; Whitney PR — Structures Engineer (Hot-Section Engineering)</h3>
+              <p class="meta">Aguadilla, PR</p>
+            </div>
+            <span class="date">Jan 2014 – Jan 2019</span>
+          </div>
+
+          <ul>
+            <li>Conducted structural analyses of parts and assemblies within the hot-section of gas turbine engines using ANSYS APDL for FEA.</li>
+            <li>Developed 2D/3D FEA models based on CAD designs and engineering drawings.</li>
+            <li>Performed static stress, low-cycle fatigue (LCF), and damage tolerance analyses to ensure compliance with design criteria.</li>
+            <li>Created APDL macros to eliminate repetitive steps and improve efficiency in FEA model creation.</li>
+            <li>Prepared technical documentation and presented analysis reports to stakeholders.</li>
+            <li>Collaborated with design teams to provide recommendations that enhanced engine performance and design robustness.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Skills</h2>
+
+      <div class="grid-3">
+        <div class="mini-card">
+          <h3>Analysis Tools</h3>
+          <ul>
+            <li><strong>ANSYS Mechanical APDL / ANSYS Workbench:</strong> FEA evaluation of structural integrity and performance under various loading conditions.</li>
+            <li><strong>Siemens NX Nastran:</strong> FEA modeling for modal, random vibration, and shock response analysis.</li>
+            <li><strong>Altair Hypermesh:</strong> Mesh morphing to update geometry changes while maintaining FE structure integrity.</li>
+          </ul>
+        </div>
+
+        <div class="mini-card">
+          <h3>Programming &amp; Automation</h3>
+          <ul>
+            <li><strong>Command Line:</strong> Microsoft Command Prompt, PowerShell, Linux Bash, and zsh shell.</li>
+            <li><strong>Scripting / Apps:</strong> VBA, Python, and Microsoft Power Apps; developed a Power App to track engineering support requests.</li>
+            <li><strong>APDL:</strong> Ansys Parametric Design Language for automation and modeling efficiency.</li>
+          </ul>
+        </div>
+
+        <div class="mini-card">
+          <h3>Design Tools</h3>
+          <ul>
+            <li><strong>PTC Creo Parametric / Siemens NX CAD:</strong> Detailed 3D modeling and 2D drawing development for aerospace components.</li>
+            <li><strong>GD&amp;T / GPS:</strong> Mechanical specification development per ASME or ISO/TC 213 standards.</li>
+            <li><strong>AutoCAD:</strong> Precise drafting of mechanical or architectural designs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Certifications &amp; Education</h2>
+
+      <div class="grid-2">
+        <div class="mini-card">
+          <h3>Certifications</h3>
+          <ul class="cert-list">
+            <li>Six Sigma Green Belt Certified</li>
+            <li>NCEES Fundamentals of Engineering (FE) Exam — Passed</li>
+            <li>Examining Board of Engineers and Surveyors of the Commonwealth of Puerto Rico — Engineer-in-Training (EIT)</li>
+          </ul>
+        </div>
+
+        <div class="mini-card">
+          <h3>Education</h3>
+          <ul class="cert-list">
+            <li>Bachelor of Science in Civil Engineering (Cum Laude)</li>
+            <li>Polytechnic University of Puerto Rico</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">Designed for clarity, ATS readability, and clean PDF export.</p>
+  </main>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const compactToggle = document.getElementById('compactToggle');
+
+    let isDark = false;
+    let isCompact = false;
+
+    themeToggle.addEventListener('click', () => {
+      isDark = !isDark;
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = 'Light mode';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggle.textContent = 'Dark mode';
+      }
+    });
+
+    compactToggle.addEventListener('click', () => {
+      isCompact = !isCompact;
+      document.body.classList.toggle('compact', isCompact);
+      compactToggle.textContent = isCompact ? 'Comfortable view' : 'Compact view';
+    });
+  </script>
+</body>
+</html>
